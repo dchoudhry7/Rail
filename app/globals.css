@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.975 0.008 85);
+  --foreground: oklch(0.2 0.012 60);
+  --card: oklch(0.99 0.005 85);
+  --card-foreground: oklch(0.2 0.012 60);
+  --popover: oklch(0.99 0.005 85);
+  --popover-foreground: oklch(0.2 0.012 60);
+  --primary: oklch(0.2 0.012 60);
+  --primary-foreground: oklch(0.975 0.008 85);
+  --secondary: oklch(0.93 0.012 80);
+  --secondary-foreground: oklch(0.25 0.012 60);
+  --muted: oklch(0.935 0.01 80);
+  --muted-foreground: oklch(0.5 0.015 60);
+  /* Darkened from L 0.60 so small accent text and white-on-accent badges pass WCAG AA 4.5:1. */
+  --accent: oklch(0.52 0.12 42);
+  --accent-foreground: oklch(0.985 0.005 85);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.012 75);
+  --input: oklch(0.88 0.012 75);
+  --ring: oklch(0.55 0.1 45);
+
+  /* The rail component reads these Tailwind theme variables directly. */
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+}
+
+.dark {
+  --background: oklch(0.17 0.008 60);
+  --foreground: oklch(0.95 0.008 85);
+  --card: oklch(0.21 0.008 60);
+  --card-foreground: oklch(0.95 0.008 85);
+  --popover: oklch(0.21 0.008 60);
+  --popover-foreground: oklch(0.95 0.008 85);
+  --primary: oklch(0.95 0.008 85);
+  --primary-foreground: oklch(0.17 0.008 60);
+  --secondary: oklch(0.26 0.01 60);
+  --secondary-foreground: oklch(0.95 0.008 85);
+  --muted: oklch(0.26 0.01 60);
+  --muted-foreground: oklch(0.7 0.012 70);
+  --accent: oklch(0.68 0.12 45);
+  --accent-foreground: oklch(0.17 0.008 60);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.68 0.12 45);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-instrument);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 30%, transparent);
+  }
+}
+
+/* Transform-only, so it runs on the compositor; the strip skips rendering (and animating)
+   while it's off-screen. */
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+.marquee-strip {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 66px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none; }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
