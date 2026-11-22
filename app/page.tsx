@@ -33,7 +33,7 @@ export default function HomePage() {
       <section className="relative">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 pt-12 sm:px-6 md:pt-16 lg:grid-cols-[1.3fr_1fr] lg:items-end">
           <div>
-            <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">AW26 · Ten pieces on the rail</p>
+            <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">Everyday clothes · Made in Porto</p>
             <h1 className="font-display text-[clamp(3rem,9vw,7.5rem)] leading-[0.9] tracking-[-0.02em]">
               Clothes, hung <em className="text-accent">properly.</em>
             </h1>
